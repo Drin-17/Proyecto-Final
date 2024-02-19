@@ -1,0 +1,42 @@
+﻿@model List<Poryecto_Final.Models.Freetoplay.FreeToPlay>
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+
+
+
+
+    // Layout = null;
+}
+@*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+@if (Model != null)
+{
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- Crea la tabla Bootstrap -->
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Propiedad1</th>
+                <th>Propiedad2</th>
+                <!-- Agrega más encabezados según las propiedades de tu clase FreeToGame -->
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Title</td>
+                    <!-- Agrega más celdas según las propiedades de tu clase FreeToGame -->
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>La lista de FreeToGame es nula.</p>
+}*@

@@ -1,0 +1,15 @@
+﻿@model List<Proyecto_Final.Models.Receta.RecetaTrack>
+
+<h1>Lista de Recetas</h1>
+<ul>
+    @foreach (var receta in Model)
+    {
+        <li>
+            <h2>@receta.Title</h2>
+         
+            <p>Ingredientes: @string.Join(", ", receta.Ingredients.Values)</p>
+            <p>Instrucciones: @receta.Instructions</p>
+            <img src="@receta.Image" alt="Imagen de la receta" />
+        </li>
+    }
+</ul>

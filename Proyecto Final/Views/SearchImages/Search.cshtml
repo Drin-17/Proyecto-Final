@@ -1,0 +1,47 @@
+﻿@model List<Proyecto_Final.Models.Unsplash.SearchImages>
+@{
+    ViewData["Title"] = "Imágenes";
+    var curriculumUrl = ViewBag.CurriculumUrl;
+}
+
+@if (!string.IsNullOrEmpty(curriculumUrl))
+{
+    <div class="container mt-3">
+        <a href="@curriculumUrl" class="btn btn-link">AUTOR: GALILEA K. PACHECO HERRERA</a>
+    </div>
+}
+<form class="input-group rounded d-flex justify-content-center mt-4" method="get" asp-action="Search">
+    <div class="input-group rounded">
+        <input type="search" id="form1" class="form-control rounded" name="filtro" placeholder="Buscar" aria-label="Search" aria-describedby="search-addon" />
+        <span class="input-group-text border-0" id="search-addon" data-mdb-ripple-init>
+            <i class="fas fa-search"></i>
+        </span>
+    </div>
+@*    <div class="form-outline w-50" data-mdb-input-init>
+        <input type="search" id="form1" class="form-control" name="filtro" placeholder="Buscar" />
+        <label class="form-label" for="form1"></label>
+    </div>
+    <button type="submit" class="btn btn-primary" data-mdb-ripple-init>
+        <i class="fas fa-search"></i>
+    </button>*@
+</form>
+<hr />
+<div class="row">
+    @foreach (var image in Model)
+    {
+        <div class="col-md-4 mb-3">
+            <div class="card">
+                <img src="@image.Image" class="card-img-top" alt="@image.Description">
+                <div class="card-body">
+                    <h5 class="card-title">@image.Description</h5>
+                    <p class="card-text">
+                        <i class="fas fa-heart"></i> @image.Likes
+                    </p>
+                    <p class="card-text">Ancho: @image.Width</p>
+                    <p class="card-text">Alto: @image.Height</p>
+                    <p class="card-text">Descargar: <a href="@image.Image" download>@image.Image</a></p>
+                </div>
+            </div>
+        </div>
+    }
+</div>

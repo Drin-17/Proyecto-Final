@@ -1,0 +1,96 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+    <link href="~/css/stylesMi.css" rel="stylesheet" />
+    <title>Propuestas Api</title>
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+</head>
+<body class="sb-nav-fixed">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+        <!-- Navbar Brand-->
+        <a class="navbar-brand ps-3" asp-area="" asp-controller="Home" asp-action="Index">Proyecto Final</a>
+        <!-- Sidebar Toggle-->
+        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+    </nav>
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_nav">
+            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                <div class="sb-sidenav-menu">
+                    <div class="nav">
+                        <div class="sb-sidenav-menu-heading">Propuestas</div>  
+                            <a class="nav-link" asp-area="" asp-controller="Receta" asp-action="Tracks">
+                                <i class="navbar-brand ps-3"></i><span>Alulema Mirella</span>
+                            </a>
+                            <a class="nav-link">
+                                <i class="navbar-brand ps-3"></i><span>Andrade Sebastian</span>
+                            </a>
+                            <a class="nav-link" asp-area="" asp-controller="FreeToPlay" asp-action="FreeToPlay">
+                                <i class="navbar-brand ps-3"></i><span>Arcentales Fernando</span>
+                            </a>
+                        <a class="nav-link" asp-area="" asp-controller="Airbnb" asp-action="Information">
+                                <i class="navbar-brand ps-3"></i><span>Guartacho Gloria</span>
+                            </a>
+                            <a class="nav-link" >
+                                <i class="navbar-brand ps-3"></i><span>Mullo Bryan</span>
+                            </a>
+                            <a class="nav-link" asp-area="" asp-controller="Spotify" asp-action="Tracks" >
+                            <div class="loader_bg">
+                                <i class="navbar-brand ps-3"></i><span>Naranjo Rodrigo</span>
+                            </div>
+                            </a>
+                            <a class="nav-link" asp-area="" asp-controller="SearchImages" asp-action="Search">
+                                <i class="navbar-brand ps-3"></i><span>Pacheco Galilea</span>
+                            </a>
+                            <a class="nav-link" >
+                                <i class="navbar-brand ps-3"></i><span>Romero Diego</span>
+                            </a>
+                            <a class="nav-link" >
+                                <i class="navbar-brand ps-3"></i><span>Sanches Hendry</span>
+                            </a>
+                        <a class="nav-link" asp-area="" asp-controller="Puntuaciónenvivo" asp-action="Tracks">
+                                <i class="navbar-brand ps-3"></i><span>Zhinin Miguel</span>
+                            </a>
+                            
+                    </div>
+                </div>
+            </nav>
+        </div>
+
+        <div id="layoutSidenav_content">
+            <main>
+                @RenderBody()
+            </main>
+            <footer class="py-4 bg-light mt-auto">
+                <div class="container-fluid px-4">
+                    <div class="d-flex align-items-center justify-content-between small">
+                        <div class="text-muted">Realizado por Rodrigo Naranjo</div>
+                        <div>
+                            <a href="https://hojadevidarodrigonaranjo.000webhostapp.com/" target="_blank">Perfil</a>
+                            &middot;
+                            <a href="https://www.ucacue.edu.ec/" target="_blank">Universidad Catolica de Cuenca</a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="js/scripts.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+    <script src="assets/demo/chart-area-demo.js"></script>
+    <script src="assets/demo/chart-bar-demo.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+    <script src="js/datatables-simple-demo.js"></script>
+</body>
+</html>
+
+
+

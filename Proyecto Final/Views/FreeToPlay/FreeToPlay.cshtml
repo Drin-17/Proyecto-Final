@@ -1,0 +1,256 @@
+﻿@using Poryecto_Final.Models.Freetoplay;
+@using ProyectoFinal.models.FreeToPLay;
+@model List<FreeToPlayResponse>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de FreeToPlay</title>
+    <!-- Enlace a Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+
+
+
+
+        body {
+            background-color: #000; /* Fondo gris claro */
+            padding-top: 20px;
+        }
+
+        .card {
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #fff; /* Fondo blanco para tarjetas */
+        }
+
+        .card-header {
+            background-color: #343a40; /* Encabezado de tarjeta gris oscuro */
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .card-title {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .card-text {
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .category-menu {
+            margin-bottom: 20px;
+        }
+
+            .category-menu a {
+                display: inline-block;
+                margin-right: 10px;
+                color: #343a40;
+                text-decoration: none;
+                font-weight: bold;
+            }
+
+                .category-menu a:hover {
+                    text-decoration: underline;
+                }
+    </style>
+</head>
+<body>
+
+  
+
+    <style>
+        body {
+            background-color: #f8f9fa; /* Fondo gris claro */
+            padding-top: 20px;
+        }
+
+        .category-card {
+            border: none;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #fff; /* Fondo blanco para la tarjeta */
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .category-label {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .category-select {
+            padding: 5px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        .category-button {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #000;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+            .category-button:hover {
+                background-color: #000;
+            }
+
+        .current-category {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .black-button {
+            background-color: black;
+            color: white; /* Esto es opcional, para asegurarse de que el texto sea visible */
+        }
+
+        .tarjeta {
+            background-color: #f0f0f0; /* Cambia el color de fondo según tus preferencias */
+            padding: 20px;
+            text-align: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000; /* Asegura que la tarjeta esté sobre otros elementos */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Agrega sombra */
+        }
+
+            .tarjeta h2 {
+                margin-top: 0;
+            }
+
+        /* Estilos para el contenido de la página */
+        body {
+            padding-top: 100px; /* Ajusta el espacio para evitar que el contenido se superponga con la tarjeta */
+        }
+
+        <style >
+        /* Estilos para el botón */
+        .boton-redireccion {
+            background-color: #888; /* Gris */
+            color: #fff; /* Blanco */
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        /* Estilos adicionales para resaltar cuando se pasa el mouse */
+        .boton-redireccion:hover {
+            background-color: #666; /* Gris más oscuro */
+        }
+    </style>
+    </style>
+
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Mi Página HTML</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+
+        <div class="tarjeta">
+            <h2>Presentación del Creador</h2>
+            <p>Hola, soy Fernando Arcentales, el creador de esta página. Bienvenido/a a mi sitio web.</p>
+          
+
+            <button class="boton-redireccion" onclick="window.location.href = 'https://cvpresentacion.000webhostapp.com';">CONTACTO</button>
+        </div>
+
+        <h1></h1>
+
+        <!-- Tu contenido va aquí -->
+
+    </body>
+</html>
+
+    
+    <body>
+        <!-- Menú de categorías en forma de tarjeta -->
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="card category-card">
+                        <div class="card-body">
+                            
+                            <form class="category-form" asp-controller="FreeToPlay" asp-action="FreeToPlay" method="get">
+                                <label class="category-label" for="categoria">SELECCIONA UNA CATEGORIA:</label>
+                                <select class="category-select" name="categoria" id="categoria">
+
+                                    <option value="Fighting">Fighting</option>
+                                    <option value="Mmo">MMO</option>
+                                    <option value="Mmorpg">MMORPG</option>
+                                    <option value="Moba">MOBA</option>
+                                    <option value="Shooter">Shooter</option>
+                                    <option value="Strategy">Strategy</option>
+                                </select>
+                                <button class="black-button" type="submit">BUSCAR</button>
+
+            
+
+                            </form>
+                            <p class="current-category">Categoría actual: @ViewBag.Categoria</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Enlace a Bootstrap JS (opcional, dependiendo de las funcionalidades que desees utilizar) -->
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    </body>
+    <div class="container">
+        <div class="row">
+            @foreach (var juego in Model)
+            {
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-header" style="background-color: #343a40;">
+                            <!-- Encabezado de tarjeta gris oscuro -->
+                        @juego.Title
+                        </div>
+                        <div class="card-body">
+                            <img src="@juego.Thumbnail" class="card-img-top" alt="Miniatura del Juego">
+                            <h5 class="card-title">@juego.ShortDescription</h5>
+                            <p class="card-text">
+                                <strong>Género:</strong> @juego.Genre<br>
+                                <strong>Plataforma:</strong> @juego.Platform<br>
+                                <strong>Editor:</strong> @juego.Publisher<br>
+                                <strong>Desarrollador:</strong> @juego.Developer<br>
+                                <strong>Fecha de Lanzamiento:</strong> @juego.ReleaseDate<br>
+                            </p>
+                            <a href="@juego.GameUrl" class="btn btn-primary" target="_blank" style="background-color: #343a40;">Jugar Ahora</a>
+                            <a href="@juego.FreetogameProfileUrl" class="btn btn-secondary" target="_blank">Perfil FreeToGame</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <!-- Enlace a Bootstrap JS (opcional, dependiendo de las funcionalidades que desees utilizar) -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,379 @@
+﻿@model Proyecto_Final.Models.Spotify.SpotifyTrack
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <!-- basic -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- mobile metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <!-- site metas -->
+    <title>SpotifyDownload</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- bootstrap css -->
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <!-- style css -->
+    <link rel="stylesheet" href="~/css/style_Spotify.css">
+    <!-- Responsive-->
+    <link rel="stylesheet" href="~/css/responsive.css">
+    <!-- fevicon -->
+    <link href="~/assets/img/Spotify.png" rel="icon">
+    <!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet" href="~/css/jquery.mCustomScrollbar.min.css">
+    <!-- Tweaks for older IEs-->
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+</head>
+<!-- body -->
+<body>
+   
+
+    <!-- loader  -->
+    <div class="loader_bg">
+        <div class="loader"><img src=/assets/img/loading.gif alt="#"  <p>Procesando... Por favor espera.</p></div>
+
+    </div>
+    <!-- end loader -->
+    <!-- header -->
+    <header>
+        <!-- header inner -->
+       
+
+
+            <!-- end header inner -->
+    </header>
+    <!-- end header -->
+    <section class="banner_section">
+        <div class="banner-main">
+            <img src="~/assets/img/banner2.jpg" />
+            <div class="container">
+                <div class="text-bg relative">
+                    <h1><br><span class="Perfect">Descarga Tu Musica Preferida</span></h1>
+                </div>
+            </div>
+        </div>
+    </section>
+    <style>
+        #searchHistory {
+            font-size: 18px;
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+            #searchHistory li {
+                margin-bottom: 5px;
+                cursor: pointer;
+            }
+
+                #searchHistory li:hover {
+                    text-decoration: underline;
+                }
+
+        .search-result {
+            display: flex;
+            align-items: center;
+            background-color: #f5f5f5;
+            border-radius: 10px;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+
+            .search-result img {
+                width: 100px; 
+                height: 100px; 
+                border-radius: 5px;
+                margin-right: 15px;
+            }
+
+            .search-result .card-body {
+                flex: 1;
+            }
+
+            .search-result h5 {
+                font-size: 24px;
+                margin-bottom: 5px;
+            }
+
+            .search-result p {
+                margin-bottom: 5px;
+            }
+
+            .search-result .album-name {
+                font-size: 14px;
+                color: #888;
+            }
+        #clearHistoryButton {
+            margin-top: 10px;
+        }
+    </style>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <form id="searchForm" method="get" action="@Url.Action("Tracks", "Spotify")">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" name="query" placeholder="Buscar canción...">
+                        <div class="input-group-append">
+                            <button class="btn btn-danger" type="submit" id="searchButton">Buscar</button>
+                        </div>
+                    </div>
+
+                    <p id="loadingMessage" style="display: none;">Cargando...</p>
+                    @if (!string.IsNullOrEmpty(ViewData["ErrorMessage"] as string))
+                    {
+                        <p id="errorMessage">@ViewData["ErrorMessage"]</p>
+                    }
+                </form>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    @if (Model != null)
+                    {
+                        <div class="card search-result">
+                            <img class="card-img-top" src="@Model.AlbumCoverUrl" alt="Portada del álbum">
+                            <div class="card-body">
+                                <h5 class="card-title">@Model.Title</h5>
+                                <p class="card-text">@Model.Artist</p>
+                                <p class="album-name">@Model.AlbumName</p>
+                                <audio controls>
+                                    <source src="@Model.YoutubeURL" type="audio/mp3">
+                                    Your browser does not support the audio element.
+                                </audio>
+                             
+                            </div>
+
+                        </div>
+                    }
+                </div> 
+                <div class="col-md-4">
+                    <h2>Historial de Búsqueda</h2>
+                    <ul id="searchHistory"></ul>
+                    <button class="btn btn-danger" onclick="clearHistory()" id="clearHistoryButton" disabled>Limpiar</button>
+                </div>
+            </div>
+        </div>
+        <script>
+            function addToHistory(query) {
+                var searchHistory = localStorage.getItem("searchHistory");
+                if (!searchHistory) {
+                    searchHistory = [];
+                } else {
+                    searchHistory = JSON.parse(searchHistory);
+                }
+
+                if (!searchHistory.includes(query)) {
+                    searchHistory.unshift(query);
+                    localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
+                }
+            }
+            function loadSearchHistory() {
+                var searchHistory = localStorage.getItem("searchHistory");
+                if (searchHistory) {
+                    searchHistory = JSON.parse(searchHistory);
+                    var historyList = document.getElementById("searchHistory");
+                    historyList.innerHTML = "";
+                    searchHistory.forEach(function (query) {
+                        var listItem = document.createElement("li");
+                        listItem.textContent = query;
+                        listItem.addEventListener("click", function () {
+                            document.querySelector('input[name="query"]').value = query;
+                            document.getElementById("searchForm").submit();
+                        });
+                        var deleteButton = document.createElement("button");
+                        deleteButton.textContent = "x";
+                        deleteButton.classList.add("btn-delete");
+                        deleteButton.addEventListener("click", function (event) {
+                            event.stopPropagation();
+                            deleteFromHistory(query);
+                            loadSearchHistory();
+                        });
+                        listItem.appendChild(deleteButton);
+                        historyList.appendChild(listItem);
+                    });
+
+                    document.getElementById("clearHistoryButton").disabled = false;
+                }
+            }
+            function deleteFromHistory(query) {
+                var searchHistory = localStorage.getItem("searchHistory");
+                if (searchHistory) {
+                    searchHistory = JSON.parse(searchHistory);
+                    var index = searchHistory.indexOf(query);
+                    if (index !== -1) {
+                        searchHistory.splice(index, 1);
+                        localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
+                    }
+                }
+            }
+            function clearHistory() {
+                localStorage.removeItem("searchHistory");
+                document.getElementById("searchHistory").innerHTML = "";
+                document.getElementById("clearHistoryButton").disabled = true;
+            }
+            document.addEventListener("DOMContentLoaded", function () {
+                loadSearchHistory();
+
+                document.getElementById("searchForm").addEventListener("submit", function () {
+                    var query = document.querySelector('input[name="query"]').value;
+                    addToHistory(query);
+                    var loadingMessage = document.getElementById("loadingMessage");
+                    loadingMessage.style.display = "block";
+                });
+            });
+        </script>
+    <div id="screenshot" class="Lastestnews">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="titlepage">
+                        <h2>SABIAS QUE...?</h2>
+                        <span>El origen de la música es desconocido, ya que inicialmente no se utilizaban instrumentos musicales para interpretarla, sino la voz humana, o la percusión corporal, que no dejan huella en el registro arqueológico. Se puede inferir que la música se descubrió en un momento similar a la aparición del lenguaje. </span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                    <div class="news-box">
+                        <figure><img src="~/assets/img/1.jpg" alt="img" /></figure>
+                        <h3>El Rey del Rock</h3>
+                        <p>Elvis Presley. Considerado como uno de los primeros iconos dentro del panorama musical, Elvis Presley es y será siempre “El rey del rock”. </p>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                    <div class="news-box">
+                        <figure><img src="~/assets/img/2.jpg" alt="img" /></figure>
+                        <h3>Rock en Español</h3>
+                        <p>M. 20 de agosto 2023, 12:06 A. M. La revista estadounidense Billboard nombró al fallecido argentino Gustavo Cerati como el mejor cantante del rock en español de todos los tiempos </p>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                    <div class="news-box">
+                        <figure><img src="~/assets/img/3.jpg" alt="img" /></figure>
+                        <h3>Extremoduro</h3>
+                        <p> El Album "La Ley Innata" se refiere al derecho de los hombres a protegernos del dolor a través de la Razón. Es decir, buscar lo que los estoicos llamaban ataraxia: “paz anímica, imperturbabilidad del ánimo”. </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end Download -->
+    <!--  footer -->
+    <footr id="footer_with_contact">
+        <div class="header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col logo_section">
+                        <div class="full">
+                            <div class="center-desk">
+                                <div class="logo">
+                                    <img src="~/assets/img/logo.jpg" alt="logo" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col logo_section">
+                        <div class="full">
+                            <div class="center-desk">
+                                <div class="logo">
+                                    <img src="~/assets/img/LogoR.jpg" alt="logo" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col logo_section">
+                        <div class="full">
+                            <div class="center-desk">
+                                <div class="logo">
+                                    <img src="~/assets/img/pop.png" alt="logo" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col logo_section">
+                        <div class="full">
+                            <div class="center-desk">
+                                <div class="logo">
+                                    <img src="~/assets/img/6527855.png" alt="logo" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-10 col-sm-10">
+                        <div class="menu-area">
+                            <div class="limit-box">
+                                <nav class="main-menu">
+                                    <ul class="menu-area-main">
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <div class="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 col-sm-12 width">
+                        <div class="address">
+                            <h3>Contact Us</h3>
+                            <ul class="locarion_icon">
+                                <li><img src="~/icon/1.png" alt="icon" />Cañar,Ecuador </li>
+                                <li><img src="~/icon/2.png" alt="icon" />Celular:(+593 0987311403)</li>
+                                <li><img src="~/icon/3.png" alt="icon" />Correo : rodrinacan15@gmail.com</li>
+
+                            </ul>
+
+                            <ul class="contant_icon">
+                                        <li><a href="https://www.facebook.com/rodrigo.naranjocantos" target="_blank"><img src="~/icon/fb.png" alt="icon" /></a></li>
+                                        <li><a href="https://www.instagram.com/rodrigo_naranjo14/" target="_blank"><img src="~/icon/instagram.png" alt="icon" /></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footr>
+    <!-- end footer -->
+    <!-- Javascript files-->
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/popper.min.js"></script>
+    <script src="~/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/jquery-3.0.0.min.js"></script>
+    <script src="~/js/plugin.js"></script>
+    <!-- sidebar -->
+    <script src="~/js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="~/js/custom.js"></script>
+    <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".fancybox").fancybox({
+                openEffect: "none",
+                closeEffect: "none"
+            });
+
+            $(".zoom").hover(function () {
+
+                $(this).addClass('transition');
+            }, function () {
+
+                $(this).removeClass('transition');
+            });
+        });
+    </script>
+</body>
+
+</html>

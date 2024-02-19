@@ -1,0 +1,45 @@
+﻿@model List<ProyectoFinal.Models.Exercise.ExerciseExampleResponse>
+<h1>Ejemplos de Ejercicio</h1>
+<div class="search-bar">
+    <form method="get" action="@Url.Action("Examples", "Exercise")">
+        <label for="muscleGroup">Selecciona un grupo muscular:</label>
+        <select id="muscleGroup" name="muscleGroup">
+            <option value="abdominals">Abdominales</option>
+            <option value="abductors">Abductores</option>
+            <option value="adductors">Adductores</option>
+            <option value="biceps">Biceps</option>
+            <option value="calves">Pantorrillas</option>
+            <option value="chest">Pecho</option>
+            <option value="forearms">Antebrazos</option>
+            <option value="glutes">Gluteos</option>
+            <option value="hamstrings">isquiotibiales</option>
+            <option value="lats">Dorsales</option>
+            <option value="lower_back">Espalda baja</option>
+            <option value="middle_back">Espalda media</option>
+            <option value="neck">Cuello</option>
+            <option value="quadriceps">Quadriceps</option>
+            <option value="traps">Abductores</option>
+            <option value="triceps">Triceps</option>
+
+        </select>
+        <button type="submit">Search</button>
+    </form>
+</div>
+
+
+        @foreach (var example in Model)
+        {
+
+            <div class="card">
+                <h3>@example.Name</h3>
+                <p><strong>Músculo:</strong> @example.Muscle</p>
+                <p><strong>Dificultad:</strong> @example.Difficulty</p>
+                <p><strong>Instrucciones:</strong> @example.Instructions</p>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <p>No se encontraron ejemplos de ejercicio.</p>
+}

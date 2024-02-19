@@ -1,0 +1,57 @@
+﻿@model List<Proyecto_Final.Models.Puntuaciónenvivo.PuntuaciónenvivoTrack>
+
+@{
+    ViewBag.Title = "Live Scores";
+}
+
+<h2>Live Scores</h2>
+
+@if (Model != null && Model.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>NewsTag</th>
+                <th>BadgeUrl</th>
+                <th>FirstColor</th>
+                <!-- Add other columns as needed -->
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var track in Model)
+            {
+                <tr>
+                    <td>@track.Id</td>
+                    <td>@track.NewsTag</td>
+                    <td>@track.badgeUrl</td>
+                    <td>@track.firstColor</td>
+                    <!-- Add other columns as needed -->
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <!-- colspan should match the number of columns in the header -->
+                        <h3>Events</h3>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Eid</th>
+                                    <!-- Add other event properties as needed -->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var eventItem in track.Events)
+                                {
+                                }
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No data available.</p>
+}
